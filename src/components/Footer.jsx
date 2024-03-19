@@ -4,11 +4,7 @@ import { Link } from "react-router-dom";
 const Footer = () => (
   <footer className="container-fluid py-3 bg-light">
     <div className="row mt-3">
-      <div className="col-md-4  d-flex gap-3 justify-content-center">
-        <Link to="/">Home</Link>
-        <Link to="/about">About</Link>
-        <Link to="/Contact">Contact</Link>
-      </div>
+      <div className="col-md-4  d-flex gap-3 justify-content-center"></div>
       <div className="col-md-4 d-flex  justify-content-center gap-2 fs-5">
         {
           <div className="d-flex align-items-center justify-content-center text-decoration-none mx-auto py-2">

@@ -20,6 +20,7 @@ function samplenav() {
         <Navbar.Toggle aria-controls="responsive-navbar-nav" />
         <Navbar.Collapse id="responsive-navbar-nav">
           <Nav className="me-auto">
+            <Nav.Link href="/course">Courses</Nav.Link>
             <Nav.Link href="/about">About Us</Nav.Link>
             <Nav.Link href="/contact">Contact Us</Nav.Link>
           </Nav>

@@ -9,6 +9,7 @@ import Profile from "./pages/Profile";
 import About from "./pages/About";
 import Contact from "./pages/Contact";
 import Course from "./pages/Course";
+import Enrollment from "./pages/Enroll";
 
 const App = () => (
   <BrowserRouter>
@@ -20,6 +21,7 @@ const App = () => (
       <Route path="/about" element={<About />} />
       <Route path="/contact" element={<Contact />} />
       <Route path="/course" element={<Course />} />
+      <Route path="/enrollment" element={<Enrollment />} />
     </Routes>
     <Footer />
   </BrowserRouter>

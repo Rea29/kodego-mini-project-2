@@ -12,9 +12,7 @@ const Home = () => {
         <h1 className="display-4 fw-bold">WELCOME TO PHILCODERS </h1>
         <p className="fs-4 fw-bold">Coding Your Dreams Into Reality!</p>
         <Link to="/course">
-          <button className="btn btn btn-dark btn-lg rounded-5">
-            GET STARTED NOW!
-          </button>
+          <button className="btn btn-primary mt-2">GET STARTED NOW!</button>
         </Link>
       </section>
       <Course />
