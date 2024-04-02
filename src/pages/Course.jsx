@@ -93,8 +93,8 @@ const Shop = () => {
                     filterByCategory(event.target.value);
                   }}
                 >
-                  <option value={null} selected>
-                    All
+                  <option>
+                    Categories
                   </option>
                   {category.map((val) => (
                     <option value={val.category} key={val.id}>
@@ -109,6 +109,7 @@ const Shop = () => {
                 <Form.Control
                   size="lg"
                   aria-label="Text input with dropdown button"
+                  placeholder="Search"
                   onKeyUp={(event) => {
                     searchCourse(event.target.value);
                   }}
@@ -120,7 +121,7 @@ const Shop = () => {
 
         {data.map((val) => (
           <div key={val.id} className="card" style={{ width: "18rem" }}>
-            <img src={val.image} className="card-img-top" alt="" />
+            <img src={val.image} className="card-img-top mt-2 " alt="" />
             <div className="card-body">
               <h6 className="text-left">{val.title}</h6>
               <h5 className="text-left">₱{val.price}</h5>
