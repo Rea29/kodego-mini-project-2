@@ -2,8 +2,10 @@ import React, { useEffect, useState } from "react";
 
 import { Form, Button } from "react-bootstrap";
 import axios from "axios";
+import { useNavigate, useParams, Link } from "react-router-dom";
 
 const CourseForm = (props) => {
+  const navigate = useNavigate();
   const [course, setcourse] = useState({
     CourseID: props.course ? props.course.CourseID : "",
     InstructorID: props.course ? props.course.InstructorID : "",
@@ -80,6 +82,12 @@ const CourseForm = (props) => {
       })
       .then(function (response) {
         console.log(response.data);
+        if (response.data.hasError == false) {
+          alert(response.data.message);
+          navigate("/course-management");
+        } else {
+          alert(response.data.message);
+        }
       })
       .catch(function (error) {
         console.error("Error:", error);
@@ -129,7 +137,7 @@ const CourseForm = (props) => {
     <div className="container my-2">
       <div className="row">
         <div className="col-md-8  mx-auto px-3 py-5 bg-light rounded">
-          <h1 className="text-center mb-3"> Course Management</h1>
+          <h1 className="text-center mb-3"> Create Course</h1>
 
           {errorMsg && <p className="errorMsg">{errorMsg}</p>}
           <Form onSubmit={handleOnSubmit}>

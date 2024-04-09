@@ -1,9 +1,11 @@
 import React, { useEffect, useState } from "react";
-
+import { useParams } from "react-router-dom";
 import { Form, Button } from "react-bootstrap";
 import axios from "axios";
 
 const CourseForm = (props) => {
+  const { courseId } = useParams();
+  console.log("courseId", courseId);
   const [course, setcourse] = useState({
     CourseID: props.course ? props.course.CourseID : "",
     InstructorID: props.course ? props.course.InstructorID : "",

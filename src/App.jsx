@@ -10,8 +10,14 @@ import About from "./pages/About";
 import Contact from "./pages/Contact";
 import Course from "./pages/Course";
 import Enrollment from "./pages/Enroll";
-import CourseManagement from './pages/CourseManagement';
+import CourseManagement from "./pages/CourseManagement";
 import CourseList from "./components/CourseList";
+import CreateCourse from "./components/CreateCourse";
+import EditCourse from "./components/EditCourse";
+import ListCourse from "./components/ListCourse";
+import CourseForm from "./components/CourseForm";
+import EditCourseForm from "./components/EditCourseForm";
+import Carousel from "./pages/Carousel";
 
 const App = () => (
   <BrowserRouter>
@@ -19,15 +25,20 @@ const App = () => (
 
     <Routes>
       <Route path="/" element={<Home />} />
+      <Route path="/create-course-example" element={<CourseForm />} />
+      <Route path="/create-course" element={<CreateCourse />} />
+      <Route path="/edit-course/:courseId" element={<EditCourseForm />} />
       <Route path="/profile" element={<Profile />} />
       <Route path="/about" element={<About />} />
       <Route path="/contact" element={<Contact />} />
       <Route path="/course" element={<Course />} />
       <Route path="/enrollment" element={<Enrollment />} />
-      <Route path="/course-management" element={<CourseManagement />} />
       <Route path="/courselist" element={<CourseList />} />
-      
-      
+      <Route path="/ListCourse" element={<ListCourse />} />
+      <Route path="/CreateCourse" element={<CreateCourse />} />
+      <Route path="/EditCourse" element={<EditCourse />} />
+      <Route path="/course-management" element={<CourseManagement />} />
+      <Route path="/Carousel" element={<Carousel />} />
     </Routes>
     <Footer />
   </BrowserRouter>
