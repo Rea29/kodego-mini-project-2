@@ -1,6 +1,6 @@
 // import CreateCourse from ".././components/CreateCourse";
 // import EditCourse from ".././components/EditCourse";
-import ListCourse from ".././components/ListCourse";
+import ListCourse from "../course/ListCourse";
 
 function samplenav() {
   return (

@@ -1,11 +1,11 @@
 import React, { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+
 import { Form, Button } from "react-bootstrap";
 import axios from "axios";
+import { useNavigate, useParams, Link } from "react-router-dom";
 
 const CourseForm = (props) => {
-  const { courseId } = useParams();
-  console.log("courseId", courseId);
+  const navigate = useNavigate();
   const [course, setcourse] = useState({
     CourseID: props.course ? props.course.CourseID : "",
     InstructorID: props.course ? props.course.InstructorID : "",
@@ -14,6 +14,9 @@ const CourseForm = (props) => {
     Description: props.course ? props.course.Description : "",
     DurationHours: props.course ? props.course.DurationHours : "",
     DurationMinutes: props.course ? props.course.DurationMinutes : "",
+    Pic_Url: props.course ? props.course.Pic_Url : "",
+    Price: props.course ? props.course.Price : "",
+    Ratings: props.course ? props.course.Ratings : "",
   });
   const [instructorData, setInstructorData] = useState([]);
   const [categoryData, setCategoryData] = useState([]);
@@ -26,6 +29,8 @@ const CourseForm = (props) => {
     Description,
     DurationHours,
     DurationMinutes,
+    Pic_Url,
+    Price,
   } = course;
   useEffect(() => {
     axios
@@ -67,6 +72,8 @@ const CourseForm = (props) => {
       Description,
       DurationHours,
       DurationMinutes,
+      Pic_Url,
+      Price,
     ];
     let errorMsg = "";
     console.log(course);
@@ -79,9 +86,17 @@ const CourseForm = (props) => {
         Description: course.Description,
         DurationHours: course.DurationHours,
         DurationMinutes: course.DurationMinutes,
+        Pic_Url: course.Pic_Url,
+        Price: course.Price,
       })
       .then(function (response) {
         console.log(response.data);
+        if (response.data.hasError == false) {
+          alert(response.data.message);
+          navigate("/course-management");
+        } else {
+          alert(response.data.message);
+        }
       })
       .catch(function (error) {
         console.error("Error:", error);
@@ -99,6 +114,8 @@ const CourseForm = (props) => {
         Description,
         DurationHours,
         DurationMinutes,
+        Pic_Url,
+        Price,
       };
       props.handleOnSubmit(course);
     } else {
@@ -131,7 +148,7 @@ const CourseForm = (props) => {
     <div className="container my-2">
       <div className="row">
         <div className="col-md-8  mx-auto px-3 py-5 bg-light rounded">
-          <h1 className="text-center mb-3"> Course Management</h1>
+          <h1 className="text-center mb-3"> Create Course</h1>
 
           {errorMsg && <p className="errorMsg">{errorMsg}</p>}
           <Form onSubmit={handleOnSubmit}>
@@ -219,6 +236,32 @@ const CourseForm = (props) => {
                 name="DurationMinutes"
                 value={DurationMinutes}
                 placeholder="Please enter DurationMinutes"
+                onChange={handleInputChange}
+              />
+
+              <br />
+            </Form.Group>
+            <Form.Group controlId="Pic_Url">
+              <Form.Label>Picture Url</Form.Label>
+              <Form.Control
+                className="input-control"
+                type="text"
+                name="Pic_Url"
+                value={Pic_Url}
+                placeholder="Please enter url pic."
+                onChange={handleInputChange}
+              />
+
+              <br />
+            </Form.Group>
+            <Form.Group controlId="Price">
+              <Form.Label>Price</Form.Label>
+              <Form.Control
+                className="input-control"
+                type="text"
+                name="Price"
+                value={Price}
+                placeholder="Please enter url Price."
                 onChange={handleInputChange}
               />
 

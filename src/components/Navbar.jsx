@@ -4,7 +4,7 @@ import Navbar from "react-bootstrap/Navbar";
 import Button from "react-bootstrap/esm/Button";
 import Form from "react-bootstrap/Form";
 import { NavLink } from "react-router-dom";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 
 function samplenav() {
   const [prevScrollPos, setPrevScrollPos] = useState(window.pageYOffset);

@@ -1,11 +1,12 @@
 import React, { useEffect, useState } from "react";
-
+import { useParams, useNavigate } from "react-router-dom";
 import { Form, Button } from "react-bootstrap";
 import axios from "axios";
-import { useNavigate, useParams, Link } from "react-router-dom";
 
 const CourseForm = (props) => {
+  const { courseId } = useParams();
   const navigate = useNavigate();
+
   const [course, setcourse] = useState({
     CourseID: props.course ? props.course.CourseID : "",
     InstructorID: props.course ? props.course.InstructorID : "",
@@ -14,10 +15,16 @@ const CourseForm = (props) => {
     Description: props.course ? props.course.Description : "",
     DurationHours: props.course ? props.course.DurationHours : "",
     DurationMinutes: props.course ? props.course.DurationMinutes : "",
+    Pic_Url: props.course ? props.course.Pic_Url : "",
+    Price: props.course ? props.course.Price : "",
+    Ratings: props.course ? props.course.Ratings : "",
   });
+  const [editCourseID, setEditCourseID] = useState([]);
+  const [selectedCourse, setSelectedCourse] = useState([]);
   const [instructorData, setInstructorData] = useState([]);
   const [categoryData, setCategoryData] = useState([]);
   const [errorMsg, setErrorMsg] = useState("");
+
   const {
     CourseID,
     InstructorID,
@@ -26,7 +33,36 @@ const CourseForm = (props) => {
     Description,
     DurationHours,
     DurationMinutes,
+    Pic_Url,
+    Price,
   } = course;
+  useEffect(() => {
+    console.log("courseId", "this the selected course id " + courseId);
+    axios
+      .post("http://localhost/api/getCourseById.php", {
+        CourseID: courseId,
+      })
+      .then(function (response) {
+        console.log("getCourseById", response.data);
+        setcourse({
+          CourseID: response.data.CourseID,
+          InstructorID: response.data.InstructorID,
+          CategoryID: response.data.CategoryID,
+          Name: response.data.Name,
+          Description: response.data.Description,
+          DurationHours: response.data.DurationHours,
+          DurationMinutes: response.data.DurationMinutes,
+          Pic_Url: response.data.Pic_Url,
+          Price: response.data.Price,
+        });
+        setSelectedCourse(response.data);
+      })
+      .catch(function (error) {
+        console.error("Error:", error);
+      });
+
+    // getCourses(null);
+  }, []);
   useEffect(() => {
     axios
       .get("http://localhost/api/getCategories.php")
@@ -67,18 +103,23 @@ const CourseForm = (props) => {
       Description,
       DurationHours,
       DurationMinutes,
+      Pic_Url,
+      Price,
     ];
     let errorMsg = "";
     console.log(course);
 
     axios
-      .post("http://127.0.0.1/api/AddCourse.php", {
+      .post("http://localhost/api/EditCourse.php", {
+        CourseID: course.CourseID,
         InstructorID: course.InstructorID,
         CategoryID: course.CategoryID,
         Name: course.Name,
         Description: course.Description,
         DurationHours: course.DurationHours,
         DurationMinutes: course.DurationMinutes,
+        Pic_Url: course.Pic_Url,
+        Price: course.Price,
       })
       .then(function (response) {
         console.log(response.data);
@@ -99,12 +140,15 @@ const CourseForm = (props) => {
 
     if (allFieldsFilled) {
       const course = {
+        CourseID,
         InstructorID,
         CategoryID,
         Name,
         Description,
         DurationHours,
         DurationMinutes,
+        Pic_Url,
+        Price,
       };
       props.handleOnSubmit(course);
     } else {
@@ -132,12 +176,40 @@ const CourseForm = (props) => {
         }));
     }
   };
-
+  function getSelectedOptionInstructor(data) {
+    if (data.InstructorID == selectedCourse.InstructorID) {
+      return (
+        <option value={data.InstructorID} key={data.InstructorID} defaultValue>
+          {data.Name}
+        </option>
+      );
+    }
+    return (
+      <option value={data.InstructorID} key={data.InstructorID}>
+        {data.Name}
+      </option>
+    );
+  }
+  function getSelectedOptionCategory(data) {
+    console.log("getSelectedOptionCategory", data);
+    if (data.CategoriesID == selectedCourse.CategoryID) {
+      return (
+        <option value={data.CategoriesID} key={data.CategoriesID} defaultValue>
+          {data.CategoryName}
+        </option>
+      );
+    }
+    return (
+      <option value={data.CategoriesID} key={data.CategoriesID}>
+        {data.CategoryName}
+      </option>
+    );
+  }
   return (
     <div className="container my-2">
       <div className="row">
         <div className="col-md-8  mx-auto px-3 py-5 bg-light rounded">
-          <h1 className="text-center mb-3"> Create Course</h1>
+          <h1 className="text-center mb-3"> Course Management</h1>
 
           {errorMsg && <p className="errorMsg">{errorMsg}</p>}
           <Form onSubmit={handleOnSubmit}>
@@ -161,13 +233,8 @@ const CourseForm = (props) => {
                 value={InstructorID}
                 onChange={handleInputChange}
               >
-                <option>Select Instructor</option>
                 {/* <option value="1">One</option> */}
-                {instructorData.map((val) => (
-                  <option value={val.InstructorID} key={val.InstructorID}>
-                    {val.Name}
-                  </option>
-                ))}
+                {instructorData.map((val) => getSelectedOptionInstructor(val))}
               </Form.Select>
               <br />
             </Form.Group>
@@ -180,13 +247,14 @@ const CourseForm = (props) => {
                 value={CategoryID}
                 onChange={handleInputChange}
               >
-                <option>Select Category</option>
+                {/* <option>Select Category</option> */}
                 {/* <option value="1">One</option> */}
-                {categoryData.map((val) => (
+                {/* {categoryData.map((val) => (
                   <option value={val.CategoriesID} key={val.CategoriesID}>
                     {val.CategoryName}
                   </option>
-                ))}
+                ))} */}
+                {categoryData.map((val) => getSelectedOptionCategory(val))}
               </Form.Select>
               <br />
             </Form.Group>
@@ -230,8 +298,35 @@ const CourseForm = (props) => {
 
               <br />
             </Form.Group>
+            <Form.Group controlId="Pic_Url">
+              <Form.Label>Picture Url</Form.Label>
+              <Form.Control
+                className="input-control"
+                type="text"
+                name="Pic_Url"
+                value={Pic_Url}
+                placeholder="Please enter url pic."
+                onChange={handleInputChange}
+              />
+
+              <br />
+            </Form.Group>
+            <Form.Group controlId="Price">
+              <Form.Label>Price</Form.Label>
+              <Form.Control
+                className="input-control"
+                type="text"
+                name="Price"
+                value={Price}
+                placeholder="Please enter url Price."
+                onChange={handleInputChange}
+              />
+
+              <br />
+            </Form.Group>
+
             <Button variant="primary" type="submit" className="submit-btn">
-              Submit
+              Save
             </Button>
           </Form>
         </div>

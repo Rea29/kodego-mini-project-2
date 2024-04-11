@@ -8,16 +8,19 @@ import "./App.css";
 import Profile from "./pages/Profile";
 import About from "./pages/About";
 import Contact from "./pages/Contact";
-import Course from "./pages/Course";
+import Course from "./course/Course";
 import Enrollment from "./pages/Enroll";
 import CourseManagement from "./pages/CourseManagement";
 import CourseList from "./components/CourseList";
-import CreateCourse from "./components/CreateCourse";
+
 import EditCourse from "./components/EditCourse";
-import ListCourse from "./components/ListCourse";
+import ListCourse from "./course/ListCourse";
 import CourseForm from "./components/CourseForm";
-import EditCourseForm from "./components/EditCourseForm";
+
 import Carousel from "./pages/Carousel";
+
+import EditCourseForm from "./course/EditCourseForm";
+import CreateCourse from "./course/CreateCourse";
 
 const App = () => (
   <BrowserRouter>

@@ -1,5 +1,5 @@
-import React from 'react';
-import CourseForm from './CourseForm';
+import React from "react";
+import CourseForm from "./CourseForm";
 
 const AddCourse = () => {
   const handleOnSubmit = (Course) => {

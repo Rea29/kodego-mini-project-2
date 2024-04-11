@@ -7,6 +7,8 @@ import InputGroup from "react-bootstrap/InputGroup";
 import Container from "react-bootstrap/Container";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
+import Button from "react-bootstrap/esm/Button";
+
 const Shop = () => {
   const [dataBackUp, setDataBackUp] = useState([]);
   const [data, setData] = useState([]);
@@ -17,7 +19,8 @@ const Shop = () => {
   function getCourses(category) {
     if (category == null || category == "All") {
       axios
-        .get("https://realyn.onrender.com/course")
+        // .get("https://realyn.onrender.com/course")
+        .get("http://localhost/api/getAllCourses.php")
         .then((res) => {
           console.log(res);
 
@@ -29,7 +32,8 @@ const Shop = () => {
         });
     } else {
       axios
-        .get("https://realyn.onrender.com/course?category=" + category)
+        .get("http://localhost/api/getAllCourses.php")
+        // .get("https://realyn.onrender.com/course?category=" + category)
         .then((res) => {
           console.log(res);
 
@@ -84,18 +88,16 @@ const Shop = () => {
         id="product"
       >
         <Container fluid="md">
-          <Row className="justify-content-md-center">
+          <Row className="justify-content-md-center ">
             <Col xs={2}>
-              <InputGroup className="mb-3">
+              <InputGroup>
                 <Form.Select
                   size="lg"
                   onChange={(event) => {
                     filterByCategory(event.target.value);
                   }}
                 >
-                  <option>
-                    Categories
-                  </option>
+                  <option>Categories</option>
                   {category.map((val) => (
                     <option value={val.category} key={val.id}>
                       {val.category}
@@ -105,7 +107,7 @@ const Shop = () => {
               </InputGroup>
             </Col>
             <Col xs={5}>
-              <InputGroup className="mb-3">
+              <InputGroup>
                 <Form.Control
                   size="lg"
                   aria-label="Text input with dropdown button"
@@ -116,16 +118,22 @@ const Shop = () => {
                 />
               </InputGroup>
             </Col>
+            <Col xs={3}>
+              <InputGroup>
+                <Button className="btn btn-primary mt-2">Search</Button>
+              </InputGroup>
+            </Col>
           </Row>
         </Container>
 
         {data.map((val) => (
-          <div key={val.id} className="card" style={{ width: "18rem" }}>
-            <img src={val.image} className="card-img-top mt-2 " alt="" />
+          <div key={val.CourseID} className="card" style={{ width: "18rem" }}>
+            <img src={val.Pic_Url} className="card-img-top mt-2 " alt="" />
             <div className="card-body">
-              <h6 className="text-left">{val.title}</h6>
-              <h5 className="text-left">₱{val.price}</h5>
-              <h5 className="text-left">Instructor: {val.instructor}</h5>
+              <h6 className="text-left">{val.Name}</h6>
+              <h5 className="text-left">{val.Description}</h5>
+              <h5 className="text-left">₱{val.Price}</h5>
+              <h5 className="text-left">Instructor: {val.InstructorName}</h5>
               {[...Array(Math.floor(val.ratings))].map((star, index) => {
                 return (
                   <FaStar
