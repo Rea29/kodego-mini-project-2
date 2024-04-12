@@ -2,12 +2,12 @@ import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { FaStar } from "react-icons/fa";
-import Form from "react-bootstrap/Form";
-import InputGroup from "react-bootstrap/InputGroup";
-import Container from "react-bootstrap/Container";
-import Row from "react-bootstrap/Row";
-import Col from "react-bootstrap/Col";
-import Button from "react-bootstrap/esm/Button";
+// import Form from "react-bootstrap/Form";
+// import InputGroup from "react-bootstrap/InputGroup";
+// import Container from "react-bootstrap/Container";
+// import Row from "react-bootstrap/Row";
+// import Col from "react-bootstrap/Col";
+// import Button from "react-bootstrap/esm/Button";
 
 const Shop = () => {
   const [dataBackUp, setDataBackUp] = useState([]);
@@ -87,44 +87,7 @@ const Shop = () => {
         className="row justify-content-center gap-4 mx-auto my-5"
         id="product"
       >
-        <Container fluid="md">
-          <Row className="justify-content-md-center ">
-            <Col xs={2}>
-              <InputGroup>
-                <Form.Select
-                  size="lg"
-                  onChange={(event) => {
-                    filterByCategory(event.target.value);
-                  }}
-                >
-                  <option>Categories</option>
-                  {category.map((val) => (
-                    <option value={val.category} key={val.id}>
-                      {val.category}
-                    </option>
-                  ))}
-                </Form.Select>
-              </InputGroup>
-            </Col>
-            <Col xs={5}>
-              <InputGroup>
-                <Form.Control
-                  size="lg"
-                  aria-label="Text input with dropdown button"
-                  placeholder="Search"
-                  onKeyUp={(event) => {
-                    searchCourse(event.target.value);
-                  }}
-                />
-              </InputGroup>
-            </Col>
-            <Col xs={3}>
-              <InputGroup>
-                <Button className="btn btn-primary mt-2">Search</Button>
-              </InputGroup>
-            </Col>
-          </Row>
-        </Container>
+        {/*   */}
 
         {data.map((val) => (
           <div key={val.CourseID} className="card" style={{ width: "18rem" }}>
