@@ -67,7 +67,7 @@ const CourseForm = (props) => {
       DurationMinutes,
     ];
     let errorMsg = "";
-    console.log(course);
+    console.log(course); 
 
     axios
       .post("http://127.0.0.1/api/AddCourse.php", {
